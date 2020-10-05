@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-cljsdhuhdwi n dinc hbi ig(AppConfig):
+class ChatConfig(AppConfig):
     name = 'chat'
