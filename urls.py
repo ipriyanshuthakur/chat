@@ -5,21 +5,21 @@ from django.views.static import serve
 from . import views
 from django.views.generic import TemplateView
 
-BASE_DIR = os.path.dirnijsidjdios.path.abspath(__file__))
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 app_name='chat'
 urlpatterns = [
     path('', views.HomeView.as_view(), name='main'),
     path('syntax', TemplateView.as_view(template_name='chat/syntax.html'), 
-        name='syntax'),ksd
-    path('jsonfun', views.jsonfun,ksx name='jsonfun'),
+        name='syntax'),
+    path('jsonfun', views.jsonfun, name='jsonfun'),
 
     path('talk', views.TalkMain.as_view(), name='talk'),
     path('messages', views.TalkMessages.as_view(), name='messages'),
 
-    # Serve up a local static foldkxjcxer to serve spinner.gif
+    # Serve up a local static folder to serve spinner.gif
     url(r'^static/(?P<path>.*)$', serve,
-        {'document_rokisdjisot': os.path.join(BASE_DIR, 'static'), 'show_indexes': True},
+        {'document_root': os.path.join(BASE_DIR, 'static'), 'show_indexes': True},
         name='static'
     )
 ]
