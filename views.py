@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, reverse
 from django.views import View
-from django.contrib.auth.mixins 
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.humanize.templatetags.humanize import naturaltime
 from django.http import JsonResponse, HttpResponse
 from chat.models import Message
@@ -9,14 +9,17 @@ import time
 
 class HomeView(View) :
     def get(self, request):
-        return render(request, 
+        return render(request, 'chat/main.html')
+
 def jsonfun(request):
     time.sleep(2)
     stuff = {
         'first': 'first thing',
         'second': 'second thing'
     }
-    return Json, View) :
+    return JsonResponse(stuff)
+
+class TalkMain(LoginRequiredMixin, View) :
     def get(self, request):
         return render(request, 'chat/talk.html')
 
@@ -25,12 +28,12 @@ def jsonfun(request):
         message.save()
         return redirect(reverse('chat:talk'))
 
-class TalkMessages(LoginR :
+class TalkMessages(LoginRequiredMixin, View) :
     def get(self, request):
-        messages = Message.obreated_at')[:10]
+        messages = Message.objects.all().order_by('-created_at')[:10]
         results = []
         for message in messages:
-            result = [mesraltime(message.created_at)]
+            result = [message.text, naturaltime(message.created_at)]
             results.append(result)
         return JsonResponse(results, safe=False)
 
